@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BA Study Material Portal | NEP 2020 Syllabus & Notes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Noto Sans Devanagari for crisp Hindi & English rendering -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html, body { max-width: 100%; overflow-x: hidden; }
+
+    @media (max-width: 640px) {
+      header .px-4 { padding-left: 0.75rem; padding-right: 0.75rem; }
+      header .py-4 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+      header h1 { font-size: 1.125rem; line-height: 1.35; }
+      main { padding-left: 0.75rem !important; padding-right: 0.75rem !important; padding-top: 1rem !important; }
+      section.rounded-2xl { border-radius: 1rem; }
+      #semesterFilterGroup, #subjectFilterGroup { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #semesterFilterGroup .sem-btn, #subjectFilterGroup .subj-btn {
+        width: 100%;
+        min-height: 2.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        text-align: center;
+      }
+      #semesterFilterGroup .sem-btn[data-sem="all"] { grid-column: 1 / -1; }
+      #subjectFilterGroup .subj-btn[data-subj="all"] { grid-column: 1 / -1; }
+      #materialsGrid { gap: 0.875rem; }
+      #materialsGrid article { border-radius: 1rem; }
+      #materialsGrid article > div:first-child { padding: 1rem; }
+      #materialsGrid article > div:last-child { padding: 0.75rem 1rem; }
+      #previewModal, #addMaterialModal { align-items: flex-end; padding: 0; }
+      #previewModal > div { max-height: 94dvh; height: 94dvh; border-radius: 1.25rem 1.25rem 0 0; }
+      #previewModal [id="modalBody"] { flex: 1; min-height: 0; padding: 1rem; }
+      #previewModal [id="modalBody"] iframe { height: 55dvh; min-height: 320px; }
+      #previewModal [id="modalSemBadge"],
+      #previewModal [id="modalTypeBadge"],
+      #previewModal [id="modalCodeBadge"] { font-size: 0.625rem; }
+      #previewModal .px-5 { padding-left: 1rem; padding-right: 1rem; }
+      #previewModal [id="modalBody"] + div { padding: 0.75rem 1rem; }
+      #addMaterialModal > div { max-height: 94dvh; height: auto; border-radius: 1.25rem 1.25rem 0 0; }
+      #addMaterialModal form { max-height: calc(94dvh - 4.25rem); overflow-y: auto; }
+      #addMaterialModal .grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+      #toast {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        width: calc(100% - 1.5rem);
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 380px) {
+      #materialsGrid article > div:last-child { grid-template-columns: 1fr; }
+      #previewModal [id="modalBody"] { padding: 0.75rem; }
+      #previewModal [id="modalBody"] iframe { height: 50dvh; min-height: 280px; }
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Devanagari', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#4f46e5',
+              600: '#4338ca',
+              700: '#3730a3',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Top Academic Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Brand & Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-700 text-white flex items-center justify-center shadow-md shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">BA Study Material Portal</h1>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">NEP 2020 • Sem 1–6</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Core Subjects: Hindi Literature • Political Science • Sociology & Allied Papers</p>
+          </div>
+        </div>
+
+        <!-- Search & Add Material Controls -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+          <div class="relative flex-1 sm:w-72">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search code (e.g. HNSC-01), title..."
+              class="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-100 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+            />
+          </div>
+          <button
+            id="openAddModalBtn"
+            type="button"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl transition cursor-pointer shrink-0"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span>Add Material</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- Filter Control Panel -->
+    <section class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6 mb-7">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            Filter Study Material (विषय और सेमेस्टर चुनें)
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Select Semester (1 to 6) and Core Subject to filter notes, syllabus & question banks</p>
+        </div>
+        <div class="flex items-center gap-3 self-start lg:self-auto">
+          <span id="resultCountBadge" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700">
+            Showing 22 Materials
+          </span>
+          <button
+            id="resetFiltersBtn"
+            type="button"
+            class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 px-3 py-1.5 rounded-xl hover:bg-indigo-50 transition cursor-pointer"
+          >
+            Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Semester Pills (1 - 6) -->
+      <div class="mt-4">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+          1. Select Semester (सेमेस्टर 1 - 6)
+        </label>
+        <div id="semesterFilterGroup" class="flex flex-wrap gap-2">
+          <button type="button" data-sem="all" class="sem-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-indigo-600 text-white shadow-sm">
+            All Semesters
+          </button>
+          <button type="button" data-sem="1" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 1
+          </button>
+          <button type="button" data-sem="2" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 2
+          </button>
+          <button type="button" data-sem="3" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 3
+          </button>
+          <button type="button" data-sem="4" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 4
+          </button>
+          <button type="button" data-sem="5" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 5
+          </button>
+          <button type="button" data-sem="6" class="sem-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Semester 6
+          </button>
+        </div>
+      </div>
+
+      <!-- Subject & Paper Type Row -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mt-5">
+        <!-- Core Subject Pills -->
+        <div class="md:col-span-8">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+            2. Select Subject (मुख्य विषय)
+          </label>
+          <div id="subjectFilterGroup" class="flex flex-wrap gap-2">
+            <button type="button" data-subj="all" class="subj-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-slate-900 text-white shadow-sm">
+              All Subjects
+            </button>
+            <button type="button" data-subj="Hindi Literature" class="subj-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100">
+              Hindi Literature (हिन्दी साहित्य)
+            </button>
+            <button type="button" data-subj="Political Science" class="subj-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-blue-50 text-blue-800 border border-blue-200 hover:bg-blue-100">
+              Political Science (राजनीति विज्ञान)
+            </button>
+            <button type="button" data-subj="Sociology" class="subj-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+              Sociology (समाजशास्त्र)
+            </button>
+            <button type="button" data-subj="Other" class="subj-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-purple-50 text-purple-800 border border-purple-200 hover:bg-purple-100">
+              Allied (GE / AEC / VAC)
+            </button>
+          </div>
+        </div>
+
+        <!-- Course Type Dropdown -->
+        <div class="md:col-span-4">
+          <label for="typeFilterSelect" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+            3. Course Category (DSC / DSE / GE)
+          </label>
+          <select
+            id="typeFilterSelect"
+            class="w-full px-3.5 py-2 text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+          >
+            <option value="all">All Paper Categories</option>
+            <option value="DSC">DSC — Discipline Specific Core</option>
+            <option value="DSE">DSE — Discipline Specific Elective</option>
+            <option value="GE">GE — Generic Elective</option>
+            <option value="AEC">AEC — Ability Enhancement Course</option>
+            <option value="VAC">VAC — Value Added Course</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Study Materials Cards Grid -->
+    <section id="materialsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Cards injected dynamically by JS -->
+    </section>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-10 text-center my-6">
+      <div class="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">No Study Material Found</h3>
+      <p class="text-sm text-slate-500 max-w-md mx-auto mt-1">
+        No study material matches your selected Semester, Subject, or search query. Try resetting your filters.
+      </p>
+      <button
+        type="button"
+        onclick="resetAllFilters()"
+        class="mt-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition cursor-pointer"
+      >
+        Show All Materials
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-5 mt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <p>BA (Bachelor of Arts) NEP 2020 Study Material Repository • Semester 1 to 6</p>
+      <p>Core Subjects: Hindi Literature • Political Science • Sociology</p>
+    </div>
+  </footer>
+
+  <!-- PREVIEW MODAL -->
+  <div id="previewModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-5">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-start justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap mb-1">
+            <span id="modalSemBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-indigo-600 text-white">SEMESTER 1</span>
+            <span id="modalTypeBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-800">DSC</span>
+            <span id="modalCodeBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-slate-200 text-slate-800">HNSC-01</span>
+          </div>
+          <h3 id="modalTitle" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">Course Title</h3>
+          <p id="modalSubject" class="text-xs sm:text-sm font-medium text-slate-500 mt-0.5">Subject Name</p>
+        </div>
+        <button
+          id="closePreviewModalBtn"
+          type="button"
+          class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition cursor-pointer shrink-0"
+          aria-label="Close Preview"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Study Preview Content -->
+      <div id="modalBody" class="p-5 sm:p-6 overflow-y-auto space-y-5 text-sm text-slate-700">
+        <!-- Injected dynamically -->
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <span class="text-xs text-slate-500 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Verified NEP 2020 Syllabus & Exam Study Guide
+        </span>
+        <div class="flex items-center gap-2.5 justify-end">
+          <button
+            type="button"
+            onclick="closePreviewModal()"
+            class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-xl transition cursor-pointer"
+          >
+            Close
+          </button>
+          <button
+            id="modalDownloadBtn"
+            type="button"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+            </svg>
+            <span>Download Material</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD MATERIAL PASSWORD MODAL -->
+  <div id="addPasswordModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm overflow-hidden">
+      <div class="px-5 py-4 bg-slate-50 border-b border-slate-200">
+        <h3 class="text-base font-bold text-slate-900">Owner Verification</h3>
+        <p class="text-xs text-slate-500 mt-1">Enter the password to add study material.</p>
+      </div>
+      <form id="addPasswordForm" class="p-5 space-y-3">
+        <label for="addPasswordInput" class="block text-xs font-semibold text-slate-700">Password</label>
+        <input id="addPasswordInput" type="password" required autocomplete="current-password" class="w-full px-3 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <p id="addPasswordError" class="hidden text-xs text-rose-600" role="alert"></p>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" id="cancelPasswordBtn" class="px-4 py-2 text-sm text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold cursor-pointer">Cancel</button>
+          <button type="submit" class="px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold cursor-pointer">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD CUSTOM MATERIAL MODAL -->
+  <div id="addMaterialModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden">
+      <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <h3 class="text-base font-bold text-slate-900">Add New Study Material</h3>
+        <button id="closeAddModalBtn" type="button" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <form id="addMaterialForm" class="p-5 space-y-4 text-sm">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Semester (1–6)</label>
+            <select id="newSem" required class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Subject Type</label>
+            <select id="newType" required class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+              <option value="DSC">DSC (Core)</option>
+              <option value="DSE">DSE (Elective)</option>
+              <option value="GE">GE (Generic)</option>
+              <option value="AEC">AEC (Ability)</option>
+              <option value="VAC">VAC (Value Added)</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Subject</label>
+            <select id="newSubject" required class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white">
+              <option value="Hindi Literature">Hindi Literature</option>
+              <option value="Political Science">Political Science</option>
+              <option value="Sociology">Sociology</option>
+              <option value="Other">Other (GE/AEC/VAC)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Course Code</label>
+            <input id="newCode" type="text" required placeholder="e.g. HNSC-04" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Course Title (Hindi / English)</label>
+          <input id="newTitle" type="text" required placeholder="e.g. आधुनिक हिन्दी काव्य" class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">External PDF / Google Drive Link (Optional)</label>
+          <input id="newLink" type="url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 border border-slate-300 rounded-xl" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Key Syllabus Topics / Notes Summary</label>
+          <textarea id="newSummary" rows="3" required placeholder="Unit 1: ..., Unit 2: ..." class="w-full px-3 py-2 border border-slate-300 rounded-xl"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" id="cancelAddBtn" class="px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold cursor-pointer">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold cursor-pointer">Save Material</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 text-sm font-medium transition-all">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
+    <span id="toastMessage">Download started!</span>
+  </div>
+
+  <script>
+    // Complete BA Study Material Dataset (Semesters 1 - 6, Core & University Table Papers)
+    const defaultMaterials = [
+      // ================= SEMESTER 1 =================
+      {
+        id: 'sem1-hnsc01',
+        semester: 1,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-01',
+        pdfUrl: 'BA/HNSC01.pdf',
+        title: 'हिंदी साहित्य का इतिहास (आदिकाल से रीतिकाल तक)',
+         size: '200KB',
+        pages: '4 Pages',                                                                                                                                                                                                                                                                                             
+        units: [
+          'इकाई 1: हिंदी साहित्य के इतिहास लेखन की परंपरा एवं काल-विभाजन व नामकरण',
+          'इकाई 2: आदिकाल — रासो काव्य, सिद्ध-नाथ साहित्य, अमीर खुसरो एवं विद्यापति',
+          'इकाई 3: भक्तिकाल — निर्गुण व सगुण काव्यधारा (कबीर, जायसी, सूरदास, तुलसीदास)',
+          'इकाई 4: रीतिकाल — रीतिबद्ध, रीतिसिद्ध एवं रीतिमुक्त काव्य की प्रमुख प्रवृत्तियाँ'
+        ],
+        summary: 'आचार्य रामचंद्र शुक्ल एवं हजारी प्रसाद द्विवेदी के काल-विभाजन के आधार पर आदिकाल, भक्तिकाल (स्वर्ण युग) और रीतिकाल की प्रमुख काव्य धाराओं, कवियों और रचनाओं का विस्तृत अध्ययन।',
+        importantQuestions: [
+          '1. आदिकाल के नामकरण की समस्या पर प्रकाश डालिए।',
+          '2. भक्तिकाल को हिंदी साहित्य का स्वर्ण युग क्यों कहा जाता है?',
+          '3. रीतिबद्ध और रीतिमुक्त काव्य में अंतर स्पष्ट कीजिए।'
+        ]
+      },
+      {
+        id: 'sem1-pssc01',
+        semester: 1,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-01',
+        pdfUrl: 'BA/PSSC01.pdf',
+        title: 'Introduction to Political Theory',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Meaning, Nature & Scope of Political Theory; Traditional vs Modern Approaches',
+          'Unit 2: Concept of State — Elements, Sovereignty (Monistic & Pluralistic Theories)',
+          'Unit 3: Key Concepts — Liberty, Equality, Justice (Rawls Theory of Justice) & Rights',
+          'Unit 4: Democracy — Classical, Liberal, Marxist & Participatory Models'
+        ],
+        summary: 'Foundational concepts of political science including state sovereignty, liberty, equality, justice, rights, and contemporary debates in democratic theory.',
+        importantQuestions: [
+          '1. Define Political Theory and discuss its relevance in contemporary times.',
+          '2. Critically examine John Rawls’ Theory of Justice.',
+          '3. Distinguish between Negative and Positive Liberty.'
+        ]
+      },
+      {
+        id: 'sem1-sosc01',
+        semester: 1,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-01',
+        title: 'Introduction to Sociology (समाजशास्त्र का परिचय)',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Emergence of Sociology, Meaning, Nature, Scope & Relationship with Social Sciences',
+          'Unit 2: Basic Concepts — Society, Community, Association, Institution & Social Groups',
+          'Unit 3: Culture, Socialization (Agencies & Theories), Status and Role',
+          'Unit 4: Social Stratification, Social Control & Social Change'
+        ],
+        summary: 'Comprehensive notes on sociological imagination, fundamental social institutions, socialization processes, and theories of social stratification.',
+        importantQuestions: [
+          '1. Differentiate between Community and Association with suitable examples.',
+          '2. Explain the major agencies of Socialization.',
+          '3. What is Social Stratification? Discuss its forms (Caste and Class).'
+        ]
+      },
+      {
+        id: 'sem1-zoge01',
+        semester: 1,
+        type: 'GE',
+        subject: 'Other',
+        subjectLabel: 'Zoology (Generic Elective)',
+        code: 'ZOGE-01',
+        pdfUrl: 'BA/ZOGE01.pdf',
+        title: 'Life on Earth & Unique Attribute of Animal Kingdom',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Origin of Life — Chemical Evolution (Oparin-Haldane) & Miller-Urey Experiment',
+          'Unit 2: Five Kingdom Classification & Basis of Animal Classification (Symmetry, Coelom)',
+          'Unit 3: Non-Chordates — General Characteristics of Protozoa to Echinodermata',
+          'Unit 4: Chordates — Evolutionary Adaptations & Ecological Significance'
+        ],
+        summary: 'Generic Elective study guide covering origin of life theories, taxonomic hierarchy, body organization, and unique characteristics of invertebrate and vertebrate phyla.',
+        importantQuestions: [
+          '1. Describe Miller and Urey’s experiment supporting chemical evolution.',
+          '2. Explain the significance of Coelom in animal classification.'
+        ]
+      },
+
+      // ================= SEMESTER 2 =================
+      {
+        id: 'sem2-hnsc02',
+        semester: 2,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-02',
+        title: 'हिंदी साहित्य का इतिहास (आधुनिक काल)',
+        size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'इकाई 1: आधुनिक काल की पृष्ठभूमि, नवजागरण एवं भारतेंदु युग',
+          'इकाई 2: द्विवेदी युग — महावीर प्रसाद द्विवेदी, खड़ी बोली का विकास एवं मैथिलीशरण गुप्त',
+          'इकाई 3: छायावाद — प्रसाद, पंत, निराला और महादेवी वर्मा की काव्य विशेषताएँ',
+          'इकाई 4: प्रगतिवाद, प्रयोगवाद एवं नई कविता की प्रमुख प्रवृत्तियाँ'
+        ],
+        summary: '1857 के पश्चात हिंदी साहित्य में नवजागरण, भारतेंदु युग, द्विवेदी युग, छायावाद तथा स्वातंत्र्योत्तर काव्य आंदोलनों का संपूर्ण अध्ययन।',
+        importantQuestions: [
+          '1. छायावाद की प्रमुख काव्यगत विशेषताओं का वर्णन कीजिए।',
+          '2. हिंदी गद्य और खड़ी बोली के विकास में महावीर प्रसाद द्विवेदी के योगदान को स्पष्ट कीजिए।'
+        ]
+      },
+      {
+        id: 'sem2-pssc02',
+        semester: 2,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-02',
+        title: 'Constitutional Government and Democracy in India',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Constituent Assembly, Philosophy of the Preamble & Salient Features',
+          'Unit 2: Fundamental Rights, Directive Principles of State Policy (DPSP) & Fundamental Duties',
+          'Unit 3: Union Executive & Legislature — President, Prime Minister, Council of Ministers & Parliament',
+          'Unit 4: Judiciary (Supreme Court, Judicial Review) & Federalism in India'
+        ],
+        summary: 'Detailed constitutional notes covering Fundamental Rights (Articles 12-35), Parliamentary functioning, Federal dynamics, and Supreme Court landmark judgments.',
+        importantQuestions: [
+          '1. Discuss the relationship between Fundamental Rights and Directive Principles.',
+          '2. Examine the powers and position of the Prime Minister of India.'
+        ]
+      },
+      {
+        id: 'sem2-sosc02',
+        semester: 2,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-02',
+        title: 'Classical Indian Society & Social Structure',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Textual & Field View of Indian Society; Unity in Diversity',
+          'Unit 2: Varna, Caste System (Jati), Purity-Pollution & Sanskritization (M.N. Srinivas)',
+          'Unit 3: Family, Marriage & Kinship Patterns in India',
+          'Unit 4: Religion, Tribe & Contemporary Transformations in Indian Society'
+        ],
+        summary: 'Explores the structural foundations of Indian society including caste, kinship, joint family system, and processes of Sanskritization and Westernization.',
+        importantQuestions: [
+          '1. Define Sanskritization and explain its impact on caste mobility.',
+          '2. Discuss the changing structure of the Joint Family in modern India.'
+        ]
+      },
+
+      // ================= SEMESTER 3 (Exact from User Image 2) =================
+      {
+        id: 'sem3-hnsc03',
+        semester: 3,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-03',
+        pdfUrl: 'BA/HNSC03.pdf',
+        title: 'मध्यकालीन हिन्दी काव्य',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'इकाई 1: कबीरदास — साखी एवं सबद (गुरुदेव को अंग, सुमिरन को अंग, समाज सुधार)',
+          'इकाई 2: मलिक मुहम्मद जायसी — पद्मावत (नागमती वियोग खंड)',
+          'इकाई 3: सूरदास (भ्रमरगीत सार) एवं गोस्वामी तुलसीदास (रामचरितमानस - अयोध्याकांड)',
+          'इकाई 4: रीतिकालीन काव्य — बिहारी सतसई के दोहे एवं घनानंद के कवित्त-सवैया'
+        ],
+        summary: 'संत काव्य (कबीर), सूफी प्रेममार्गी काव्य (जायसी), कृष्ण-राम भक्ति काव्य (सूर, तुलसी) तथा रीतिकालीन कवियों (बिहारी, घनानंद) की व्याख्या एवं आलोचनात्मक प्रश्न।',
+        importantQuestions: [
+          '1. कबीर की समाज-चेतना और काव्य-भाषा पर निबंध लिखिए।',
+          '2. नागमती वियोग खंड की मार्मिकता पर प्रकाश डालिए।',
+          '3. घनानंद की प्रेम-व्यंजना की विशेषताएँ बताइए।'
+        ]
+      },
+      {
+        id: 'sem3-pssc03',
+        semester: 3,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-03',
+        pdfUrl: 'BA/PSSC03.pdf',
+        title: 'Western Political Thought',
+        size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Greek Political Thought — Plato (Ideal State, Justice, Philosopher King) & Aristotle (State, Citizenship, Revolution)',
+          'Unit 2: Renaissance & Modernity — Niccolò Machiavelli (Statecraft, Morality & Politics)',
+          'Unit 3: Social Contract Tradition — Thomas Hobbes, John Locke & Jean-Jacques Rousseau',
+          'Unit 4: Utilitarianism & Marxism — J.S. Mill (Liberty) and Karl Marx (Historical Materialism, Class Struggle)'
+        ],
+        summary: 'Complete analytical notes on classical and modern Western political philosophers from Plato and Aristotle to Hobbes, Locke, Rousseau, J.S. Mill, and Karl Marx.',
+        importantQuestions: [
+          '1. Critically evaluate Plato’s concept of Philosopher King.',
+          '2. Compare the Social Contract theories of Hobbes, Locke, and Rousseau.',
+          '3. Explain Karl Marx’s theory of Historical Materialism and Class Struggle.'
+        ]
+      },
+      {
+        id: 'sem3-sosc03',
+        semester: 3,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-03',
+        pdfUrl: 'BA/SOSC03.pdf',
+        title: 'Tribal Culture of Chhattisgarh',
+        size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Scheduled Tribes of Chhattisgarh — Demographic Profile & Geographical Distribution (Bastar & Surguja)',
+          'Unit 2: Major Tribes — Gond, Maria, Muria, Baiga, Oraon, Kamar & Abujhmadia',
+          'Unit 3: Social & Cultural Institutions — Ghotul (Youth Dormitory), Tribal Marriage, Kinship & Clan Totemism',
+          'Unit 4: Tribal Economy, Folk Art (Bastar Dussehra, Madai), Forest Rights (PESA) & Displacement Issues'
+        ],
+        summary: 'Specialized regional sociology guide covering the indigenous tribes of Chhattisgarh, Ghotul youth dormitory system, traditional governance, festivals, and constitutional safeguards.',
+        importantQuestions: [
+          '1. Write a detailed note on the Ghotul institution among the Muria tribe of Bastar.',
+          '2. Discuss the socio-economic life and culture of the Baiga tribe.',
+          '3. Examine the impact of industrialization and PESA Act on tribal communities of Chhattisgarh.'
+        ]
+      },
+      {
+        id: 'sem3-sose01',
+        semester: 3,
+        type: 'DSE',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (DSE Elective)',
+        code: 'SOSE-01',
+        pdfUrl: 'BA/SOSE01.pdf',
+        title: 'Crime and Society (अपराध और समाज)',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Concept of Crime, Deviance & Criminology; Classical and Positivist Schools',
+          'Unit 2: Sociological Theories of Crime — Anomie (Durkheim & Merton), Differential Association (Sutherland)',
+          'Unit 3: Forms of Crime — White-Collar Crime, Cyber Crime, Juvenile Delinquency & Crimes against Women',
+          'Unit 4: Punishment Theories, Correctional Administration & Prison Reforms in India'
+        ],
+        summary: 'Examines sociological causes of criminal behavior, Sutherland’s White-Collar Crime, cybercrime trends, juvenile justice, and modern correctional systems.',
+        importantQuestions: [
+          '1. Explain Robert K. Merton’s Strain/Anomie theory of deviance.',
+          '2. What is White-Collar Crime? Discuss its causes and consequences.'
+        ]
+      },
+      {
+        id: 'sem3-aec02',
+        semester: 3,
+        type: 'AEC',
+        subject: 'Other',
+        subjectLabel: 'English (Ability Enhancement)',
+        code: 'AEC-02',
+        pdfUrl: 'BA/ENAEC01.pdf',
+        title: 'English Language',
+         size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Reading Comprehension & Critical Vocabulary Building',
+          'Unit 2: Applied Grammar — Tenses, Voice, Narration, Prepositions & Subject-Verb Concord',
+          'Unit 3: Formal Writing Skills — Official Letters, Report Writing, CV/Resume & Notice Drafting',
+          'Unit 4: Oral Communication — Presentation Skills, Group Discussion & Interview Etiquette'
+        ],
+        summary: 'Practical English communication workbook with solved grammar exercises, official correspondence templates, and comprehension passages.',
+        importantQuestions: [
+          '1. Draft a formal application and CV for the post of Assistant Researcher.',
+          '2. Write a report on a College Annual Cultural Fest.'
+        ]
+      },
+      {
+        id: 'sem3-bovac02',
+        semester: 3,
+        type: 'VAC',
+        subject: 'Other',
+        subjectLabel: 'Botany (Value Added Course)',
+        code: 'BOVAC-02',
+        pdfUrl: 'BA/BOVAC02.pdf',
+        title: 'Herbal Plant & Human Health',
+        size: '200KB',
+        pages: '4 Pages',
+        units: [
+          'Unit 1: Introduction to Ethnobotany & Traditional Indian Systems of Medicine (Ayurveda, Siddha, Unani)',
+          'Unit 2: Important Medicinal Plants — Tulsi, Ashwagandha, Neem, Giloy, Turmeric & Aloe Vera',
+          'Unit 3: Parts Used, Active Phytochemicals & Therapeutic Applications in Primary Healthcare',
+          'Unit 4: Cultivation, Conservation of Endangered Medicinal Flora & Herbal Garden Management'
+        ],
+        summary: 'Value-added study notes on medicinal flora of India, active herbal compounds, household remedies, and sustainable conservation practices.',
+        importantQuestions: [
+          '1. Describe the botanical name, active constituents, and medicinal uses of Ashwagandha and Giloy.',
+          '2. Discuss the role of Ayurveda and ethnobotany in modern preventive healthcare.'
+        ]
+      },
+
+      // ================= SEMESTER 4 =================
+      {
+        id: 'sem4-hnsc04',
+        semester: 4,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-04',
+        title: 'आधुनिक हिन्दी काव्य',
+        size: '2.5 MB',
+        pages: '48 Pages',
+        units: [
+          'इकाई 1: मैथिलीशरण गुप्त (साकेत - नवम सर्ग) एवं अयोध्यासिंह उपाध्याय "हरिऔध"',
+          'इकाई 2: जयशंकर प्रसाद (कामायनी - श्रद्धा सर्ग) एवं सूर्यकांत त्रिपाठी "निराला" (राम की शक्तिपूजा)',
+          'इकाई 3: सुमित्रानंदन पंत (नौका विहार) एवं महादेवी वर्मा (गीत संग्रह)',
+          'इकाई 4: रामधारी सिंह "दिनकर" (कुरुक्षेत्र), अज्ञेय एवं मुक्तिबोध की चुनिंदा कविताएँ'
+        ],
+        summary: 'आधुनिक हिंदी काव्य के प्रतिनिधि कवियों की व्याख्या, काव्य-सौंदर्य एवं राष्ट्रीय-सांस्कृतिक चेतना पर आधारित परीक्षा उपयोगी नोट्स।',
+        importantQuestions: [
+          '1. "राम की शक्तिपूजा" में निराला की ओजस्वी काव्य-चेतना का विश्लेषण कीजिए।',
+          '2. कामायनी के श्रद्धा सर्ग में निहित मानवतावादी संदेश स्पष्ट कीजिए।'
+        ]
+      },
+      {
+        id: 'sem4-pssc04',
+        semester: 4,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-04',
+        title: 'Indian Political Thought',
+        size: '2.6 MB',
+        pages: '50 Pages',
+        units: [
+          'Unit 1: Ancient Indian Political Thought — Kautilya (Saptanga Theory, Mandala Theory of Foreign Policy)',
+          'Unit 2: Social Reform & Renaissance — Raja Ram Mohan Roy & Swami Vivekananda',
+          'Unit 3: Nationalist & Gandhian Thought — Bal Gangadhar Tilak & Mahatma Gandhi (Swaraj, Satyagraha, Trusteeship)',
+          'Unit 4: Social Justice & Socialism — Dr. B.R. Ambedkar (Annihilation of Caste) & Ram Manohar Lohia'
+        ],
+        summary: 'Comprehensive study of Indian political thinkers from Kautilya’s Arthashastra to Gandhi’s Sarvodaya and Dr. B.R. Ambedkar’s constitutional democracy.',
+        importantQuestions: [
+          '1. Explain Kautilya’s Saptanga Theory of State and Mandala Theory.',
+          '2. Discuss Dr. B.R. Ambedkar’s views on Social Justice and Parliamentary Democracy.'
+        ]
+      },
+      {
+        id: 'sem4-sosc04',
+        semester: 4,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-04',
+        title: 'Rural Social System & Social Issues in India',
+        size: '2.3 MB',
+        pages: '43 Pages',
+        units: [
+          'Unit 1: Rural Sociology — Characteristics of Village Community, Jajmani System & Agrarian Structure',
+          'Unit 2: Panchayati Raj Institutions (73rd Amendment) & Rural Development Programmes',
+          'Unit 3: Contemporary Social Problems — Poverty, Unemployment, Illiteracy & Alcoholism',
+          'Unit 4: Gender Inequality, Domestic Violence, Youth Unrest & Environmental Degradation'
+        ],
+        summary: 'Analyzes Indian rural social structure, land reforms, Panchayati Raj governance, and key social challenges in contemporary India.',
+        importantQuestions: [
+          '1. What is the Jajmani System? Discuss its merits, demerits, and disintegration.',
+          '2. Evaluate the impact of the 73rd Constitutional Amendment on rural empowerment.'
+        ]
+      },
+
+      // ================= SEMESTER 5 =================
+      {
+        id: 'sem5-hnsc05',
+        semester: 5,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-05',
+        title: 'हिन्दी गद्य साहित्य (कहानी और उपन्यास)',
+        size: '2.7 MB',
+        pages: '52 Pages',
+        units: [
+          'इकाई 1: हिंदी उपन्यास का उद्भव और विकास; मुंशी प्रेमचंद (गोदान / निर्मला)',
+          'इकाई 2: स्वातंत्र्योत्तर हिंदी उपन्यास — फणीश्वरनाथ रेणु (मैला आंचल) एवं मन्नू भंडारी (आपका बंटी)',
+          'इकाई 3: हिंदी कहानी का विकास — प्रेमचंद (पूस की रात, कफन), चंद्रधर शर्मा गुलेरी (उसने कहा था)',
+          'इकाई 4: नई कहानी आंदोलन — मोहन राकेश, कमलेश्वर एवं निर्मल वर्मा की कहानियाँ'
+        ],
+        summary: 'हिंदी उपन्यास और कहानी साहित्य की विकास यात्रा, आंचलिक उपन्यास परंपरा तथा प्रमुख कथाकारों की कृतियों की तात्विक समीक्षा।',
+        importantQuestions: [
+          '1. "गोदान" को भारतीय कृषक जीवन का महाकाव्य क्यों कहा जाता है?',
+          '2. "उसने कहा था" कहानी की शिल्पगत और भावगत विशेषताओं का विवेचन कीजिए।'
+        ]
+      },
+      {
+        id: 'sem5-pssc05',
+        semester: 5,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-05',
+        title: 'Comparative Government and Politics',
+        size: '2.5 MB',
+        pages: '49 Pages',
+        units: [
+          'Unit 1: Nature & Scope of Comparative Politics; Institutional, Systems & Structural-Functional Approaches',
+          'Unit 2: Constitutionalism & Executives — UK (Parliamentary), USA (Presidential) & Switzerland (Plural Executive)',
+          'Unit 3: Legislatures & Judiciary — British Parliament, US Congress & Judicial Review',
+          'Unit 4: Party Systems & Electoral Systems — First-Past-The-Post vs Proportional Representation'
+        ],
+        summary: 'Comparative analysis of political systems of the UK, USA, Switzerland, and China alongside party systems and electoral models.',
+        importantQuestions: [
+          '1. Compare the powers of the American President and the British Prime Minister.',
+          '2. Distinguish between Plurality (FPTP) and Proportional Representation electoral systems.'
+        ]
+      },
+      {
+        id: 'sem5-sosc05',
+        semester: 5,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-05',
+        title: 'Sociological Thinkers (समाजशास्त्रीय विचारक)',
+        size: '2.6 MB',
+        pages: '50 Pages',
+        units: [
+          'Unit 1: Auguste Comte (Positivism, Law of Three Stages) & Herbert Spencer (Social Darwinism)',
+          'Unit 2: Émile Durkheim — Social Facts, Division of Labour & Theory of Suicide',
+          'Unit 3: Max Weber — Social Action, Ideal Types, Bureaucracy & Protestant Ethic and Spirit of Capitalism',
+          'Unit 4: Karl Marx (Alienation, Mode of Production) & Indian Thinkers (G.S. Ghurye, M.N. Srinivas)'
+        ],
+        summary: 'Core theoretical foundations of classical sociology covering Comte, Durkheim, Weber, Marx, and pioneers of Indian sociology.',
+        importantQuestions: [
+          '1. Explain Émile Durkheim’s sociological study of Suicide.',
+          '2. Discuss Max Weber’s Ideal Type of Bureaucracy and its characteristics.'
+        ]
+      },
+
+      // ================= SEMESTER 6 =================
+      {
+        id: 'sem6-hnsc06',
+        semester: 6,
+        type: 'DSC',
+        subject: 'Hindi Literature',
+        subjectLabel: 'Hindi Literature (हिन्दी साहित्य)',
+        code: 'HNSC-06',
+        title: 'हिन्दी निबंध, नाटक एवं एकांकी',
+        size: '2.4 MB',
+        pages: '47 Pages',
+        units: [
+          'इकाई 1: हिंदी नाटक का उद्भव और विकास — भारतेंदु हरिश्चंद्र (अंधेर नगरी) एवं जयशंकर प्रसाद (ध्रुवस्वामिनी)',
+          'इकाई 2: स्वातंत्र्योत्तर नाटक — मोहन राकेश (आषाढ़ का एक दिन) एवं धर्मवीर भारती (अंधायुग)',
+          'इकाई 3: हिंदी एकांकी — डॉ. रामकुमार वर्मा (दीपदान) एवं भुवनेश्वर प्रसाद',
+          'इकाई 4: हिंदी निबंध साहित्य — आचार्य रामचंद्र शुक्ल, हजारी प्रसाद द्विवेदी (कुटज) एवं हरिशंकर परसाई के व्यंग्य निबंध'
+        ],
+        summary: 'हिंदी नाट्य परंपरा, रंगमंचीय विशेषताएँ, प्रमुख एकांकी तथा ललित एवं व्यंग्य निबंधों का समग्र अध्ययन।',
+        importantQuestions: [
+          '1. "ध्रुवस्वामिनी" नाटक में नारी-मुक्ति की समस्या पर प्रकाश डालिए।',
+          '2. हजारी प्रसाद द्विवेदी के ललित निबंध "कुटज" की मूल संवेदना स्पष्ट कीजिए।'
+        ]
+      },
+      {
+        id: 'sem6-pssc06',
+        semester: 6,
+        type: 'DSC',
+        subject: 'Political Science',
+        subjectLabel: 'Political Science (राजनीति विज्ञान)',
+        code: 'PSSC-06',
+        title: 'International Relations & Global Politics',
+        size: '2.8 MB',
+        pages: '55 Pages',
+        units: [
+          'Unit 1: Theories of International Relations — Idealism, Realism (Morgenthau), Neo-Realism & Liberalism',
+          'Unit 2: Cold War, End of Bipolarity, Globalization & Emerging Multipolar World Order',
+          'Unit 3: International Organizations — United Nations (UN Reforms), SAARC, ASEAN, BRICS & G20',
+          'Unit 4: Indian Foreign Policy — Non-Aligned Movement (NAM), Relations with Neighbours & Major Powers'
+        ],
+        summary: 'Covers IR theories, Cold War geopolitics, United Nations peacekeeping, regional blocs (BRICS, G20), and determinants of India’s foreign policy.',
+        importantQuestions: [
+          '1. Explain Hans Morgenthau’s Six Principles of Political Realism.',
+          '2. Critically evaluate the relevance of Non-Alignment in India’s contemporary foreign policy.'
+        ]
+      },
+      {
+        id: 'sem6-sosc06',
+        semester: 6,
+        type: 'DSC',
+        subject: 'Sociology',
+        subjectLabel: 'Sociology (समाजशास्त्र)',
+        code: 'SOSC-06',
+        title: 'Social Research Methods (सामाजिक अनुसंधान पद्धतियाँ)',
+        size: '2.3 MB',
+        pages: '45 Pages',
+        units: [
+          'Unit 1: Meaning & Steps of Social Research; Objectivity, Subjectivity & Scientific Method',
+          'Unit 2: Research Design (Exploratory, Descriptive, Experimental) & Hypothesis Formulation',
+          'Unit 3: Sampling Techniques (Probability & Non-Probability) & Data Collection Tools (Observation, Interview, Questionnaire)',
+          'Unit 4: Classification, Tabulation, Mean-Median-Mode & Report Writing'
+        ],
+        summary: 'Practical guide to sociological research methodology, sampling designs, primary/secondary data collection tools, and basic social statistics.',
+        importantQuestions: [
+          '1. Define Hypothesis. Discuss its types, sources, and importance in social research.',
+          '2. Differentiate between Questionnaire and Interview Schedule.'
+        ]
+      }
+    ];
+
+    // Load saved custom materials from localStorage if available
+    let materials = [...defaultMaterials];
+    try {
+      const savedCustom = JSON.parse(localStorage.getItem('ba_custom_materials_v1') || '[]');
+      if (Array.isArray(savedCustom) && savedCustom.length > 0) {
+        materials = [...savedCustom, ...defaultMaterials];
+      }
+    } catch (e) {
+      console.warn('Could not load saved materials:', e);
+    }
+
+    // Filter State
+    const filterState = {
+      semester: 'all',
+      subject: 'all',
+      type: 'all',
+      search: ''
+    };
+
+    // DOM Elements
+    const materialsGrid = document.getElementById('materialsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const resultCountBadge = document.getElementById('resultCountBadge');
+    const searchInput = document.getElementById('searchInput');
+    const typeFilterSelect = document.getElementById('typeFilterSelect');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+
+    // Subject Badge Color Helpers
+    function getSubjectStyle(subject) {
+      switch (subject) {
+        case 'Hindi Literature':
+          return {
+            accent: 'border-t-4 border-t-amber-500',
+            badge: 'bg-amber-50 text-amber-800 border-amber-200',
+            iconBg: 'bg-amber-100 text-amber-700'
+          };
+        case 'Political Science':
+          return {
+            accent: 'border-t-4 border-t-blue-600',
+            badge: 'bg-blue-50 text-blue-800 border-blue-200',
+            iconBg: 'bg-blue-100 text-blue-700'
+          };
+        case 'Sociology':
+          return {
+            accent: 'border-t-4 border-t-emerald-600',
+            badge: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+            iconBg: 'bg-emerald-100 text-emerald-700'
+          };
+        default:
+          return {
+            accent: 'border-t-4 border-t-purple-600',
+            badge: 'bg-purple-50 text-purple-800 border-purple-200',
+            iconBg: 'bg-purple-100 text-purple-700'
+          };
+      }
+    }
+
+    function getTypeBadgeStyle(type) {
+      switch (type) {
+        case 'DSC':
+          return 'bg-indigo-100 text-indigo-800 border-indigo-200';
+        case 'DSE':
+          return 'bg-teal-100 text-teal-800 border-teal-200';
+        case 'GE':
+          return 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200';
+        case 'AEC':
+          return 'bg-sky-100 text-sky-800 border-sky-200';
+        case 'VAC':
+          return 'bg-rose-100 text-rose-800 border-rose-200';
+        default:
+          return 'bg-slate-100 text-slate-800 border-slate-200';
+      }
+    }
+
+    // Render Cards
+    function renderMaterials() {
+      const filtered = materials.filter((item) => {
+        const matchSem = filterState.semester === 'all' || String(item.semester) === String(filterState.semester);
+        const matchSubj = filterState.subject === 'all' || item.subject === filterState.subject;
+        const matchType = filterState.type === 'all' || item.type === filterState.type;
+
+        const q = filterState.search.trim().toLowerCase();
+        const matchSearch =
+          !q ||
+          item.code.toLowerCase().includes(q) ||
+          item.title.toLowerCase().includes(q) ||
+          item.subject.toLowerCase().includes(q) ||
+          item.subjectLabel.toLowerCase().includes(q) ||
+          item.summary.toLowerCase().includes(q);
+
+        return matchSem && matchSubj && matchType && matchSearch;
+      });
+
+      resultCountBadge.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? 'Material' : 'Materials'}`;
+
+      if (filtered.length === 0) {
+        materialsGrid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      materialsGrid.innerHTML = filtered
+        .map((item) => {
+          const style = getSubjectStyle(item.subject);
+          const typeStyle = getTypeBadgeStyle(item.type);
+
+          return `
+            <article class="bg-white rounded-2xl border border-slate-200 ${style.accent} shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden">
+              <div class="p-5">
+                <!-- Top Badges Row -->
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-900 text-white tracking-wide">
+                      SEM ${item.semester}
+                    </span>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg border ${typeStyle}">
+                      ${item.type}
+                    </span>
+                  </div>
+                  <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+                    ${item.code}
+                  </span>
+                </div>
+
+                <!-- Subject Tag -->
+                <div class="mb-2">
+                  <span class="inline-block text-xs font-semibold px-2.5 py-0.5 rounded-md border ${style.badge}">
+                    ${item.subjectLabel}
+                  </span>
+                </div>
+
+                <!-- Course Title -->
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug mb-2">
+                  ${item.title}
+                </h3>
+
+                <!-- Brief Summary -->
+                <p class="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                  ${item.summary}
+                </p>
+
+                <!-- File Metadata -->
+                <div class="flex items-center gap-3 text-xs text-slate-500 pt-3 border-t border-slate-100">
+                  <span class="inline-flex items-center gap-1 font-medium">
+                    <svg class="w-3.5 h-3.5 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7.414A2 2 0 0017.414 6L14 2.586A2 2 0 0012.586 2H4z" />
+                    </svg>
+                    Notes + PYQ
+                  </span>
+                  <span>•</span>
+                  <span>${item.pages || '45 Pages'}</span>
+                  <span>•</span>
+                  <span>${item.size || '2.2 MB'}</span>
+                </div>
+              </div>
+
+              <!-- Bottom Action Buttons: Preview & Download -->
+              <div class="px-5 py-3.5 bg-slate-50/90 border-t border-slate-200/80 grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onclick="openPreviewModal('${item.id}')"
+                  class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl shadow-2xs transition cursor-pointer"
+                >
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <span>Preview</span>
+                </button>
+
+                <button
+                  type="button"
+                  onclick="downloadStudyMaterial('${item.id}')"
+                  class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs transition cursor-pointer"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+                  </svg>
+                  <span>Download</span>
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    // Semester Filter Buttons
+    document.querySelectorAll('.sem-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sem-btn').forEach((b) => {
+          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-sm');
+          b.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        btn.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-sm');
+        btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+        filterState.semester = btn.dataset.sem;
+        renderMaterials();
+      });
+    });
+
+    // Subject Filter Buttons
+    document.querySelectorAll('.subj-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.subj-btn').forEach((b) => {
+          b.classList.remove('ring-2', 'ring-offset-1', 'ring-slate-900', 'font-bold');
+        });
+        btn.classList.add('ring-2', 'ring-offset-1', 'ring-slate-900', 'font-bold');
+
+        filterState.subject = btn.dataset.subj;
+        renderMaterials();
+      });
+    });
+
+    // Course Type Dropdown
+    typeFilterSelect.addEventListener('change', (e) => {
+      filterState.type = e.target.value;
+      renderMaterials();
+    });
+
+    // Search Input
+    searchInput.addEventListener('input', (e) => {
+      filterState.search = e.target.value;
+      renderMaterials();
+    });
+
+    // Reset Filters
+    function resetAllFilters() {
+      filterState.semester = 'all';
+      filterState.subject = 'all';
+      filterState.type = 'all';
+      filterState.search = '';
+
+      searchInput.value = '';
+      typeFilterSelect.value = 'all';
+
+      document.querySelectorAll('.sem-btn').forEach((b) => {
+        b.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      const allSemBtn = document.querySelector('.sem-btn[data-sem="all"]');
+      if (allSemBtn) {
+        allSemBtn.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-sm');
+        allSemBtn.classList.remove('bg-slate-100', 'text-slate-700');
+      }
+
+      document.querySelectorAll('.subj-btn').forEach((b) => {
+        b.classList.remove('ring-2', 'ring-offset-1', 'ring-slate-900', 'font-bold');
+      });
+      const allSubjBtn = document.querySelector('.subj-btn[data-subj="all"]');
+      if (allSubjBtn) {
+        allSubjBtn.classList.add('ring-2', 'ring-offset-1', 'ring-slate-900', 'font-bold');
+      }
+
+      renderMaterials();
+    }
+
+    resetFiltersBtn.addEventListener('click', resetAllFilters);
+
+    // Preview Modal Logic
+    const previewModal = document.getElementById('previewModal');
+    const closePreviewModalBtn = document.getElementById('closePreviewModalBtn');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+
+    function openPreviewModal(id) {
+      const item = materials.find((m) => m.id === id);
+      if (!item) return;
+
+      document.getElementById('modalSemBadge').textContent = `SEMESTER ${item.semester}`;
+      document.getElementById('modalTypeBadge').textContent = item.type;
+      document.getElementById('modalCodeBadge').textContent = item.code;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalSubject').textContent = `${item.subjectLabel} • ${item.pages || '45 Pages'} (${item.size || '2.2 MB'})`;
+
+      const unitsHtml = (item.units || [])
+        .map(
+          (u) => `
+          <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+            <span class="w-2 h-2 rounded-full bg-indigo-600 mt-1.5 shrink-0"></span>
+            <span class="text-slate-800 font-medium">${u}</span>
+          </li>
+        `
+        )
+        .join('');
+
+      const questionsHtml = (item.importantQuestions || [])
+        .map(
+          (q) => `
+          <li class="text-slate-700 bg-amber-50/70 border border-amber-200/70 px-3 py-2 rounded-xl">
+            ${q}
+          </li>
+        `
+        )
+        .join('');
+
+      document.getElementById('modalBody').innerHTML = `
+        ${
+          item.pdfUrl
+            ? `<div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 mb-2">PDF Preview</h4>
+                <iframe
+                  src="${encodeURI(item.pdfUrl)}"
+                  title="${item.code} PDF Preview"
+                  class="w-full h-[480px] rounded-xl border border-slate-300 bg-slate-100"
+                ></iframe>
+              </div>`
+            : ''
+        }
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 mb-1.5">Course Overview / पाठ्यक्रम सारांश</h4>
+          <p class="text-slate-700 leading-relaxed bg-indigo-50/50 border border-indigo-100 p-3.5 rounded-xl">
+            ${item.summary}
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Unit-Wise Syllabus & Study Notes</h4>
+          <ul class="space-y-2">
+            ${unitsHtml}
+          </ul>
+        </div>
+
+        ${
+          questionsHtml
+            ? `<div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">Important University Exam Questions (PYQ)</h4>
+                <ul class="space-y-2">
+                  ${questionsHtml}
+                </ul>
+              </div>`
+            : ''
+        }
+      `;
+
+      modalDownloadBtn.onclick = () => downloadStudyMaterial(item.id);
+
+      previewModal.classList.remove('hidden');
+      previewModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePreviewModal() {
+      previewModal.classList.add('hidden');
+      previewModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    closePreviewModalBtn.addEventListener('click', closePreviewModal);
+    previewModal.addEventListener('click', (e) => {
+      if (e.target === previewModal) closePreviewModal();
+    });
+
+    // Download Study Material Handler (Generates a clean, formatted Study Guide file)
+    function downloadStudyMaterial(id) {
+      const item = materials.find((m) => m.id === id);
+      if (!item) return;
+
+      if (item.pdfUrl) {
+        const link = document.createElement('a');
+        link.href = encodeURI(item.pdfUrl);
+        link.download = item.pdfUrl.split('/').pop();
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast(`Downloading ${item.code} PDF...`);
+        return;
+      }
+
+      // If custom external URL was provided by user, open it
+      if (item.externalUrl) {
+        window.open(item.externalUrl, '_blank', 'noopener,noreferrer');
+        showToast(`Opening external link for ${item.code}...`);
+        return;
+      }
+
+      const contentLines = [
+        '====================================================================',
+        '              BA (BACHELOR OF ARTS) - NEP 2020 STUDY GUIDE          ',
+        '====================================================================',
+        `SEMESTER     : Semester ${item.semester}`,
+        `SUBJECT      : ${item.subjectLabel}`,
+        `COURSE TYPE  : ${item.type}`,
+        `COURSE CODE  : ${item.code}`,
+        `COURSE TITLE : ${item.title}`,
+        '====================================================================',
+        '',
+        '1. COURSE OVERVIEW / SUMMARY:',
+        item.summary,
+        '',
+        '2. UNIT-WISE SYLLABUS & STUDY TOPICS:',
+        ...(item.units || []).map((u) => `   • ${u}`),
+        '',
+        '3. IMPORTANT EXAM QUESTIONS (PREVIOUS YEAR & MODEL):',
+        ...(item.importantQuestions || ['   • Prepare short and long notes on all core units above.']).map((q) => `   ${q}`),
+        '',
+        '====================================================================',
+        'Generated from BA Study Material Download Portal',
+        '===================================================================='
+      ].join('\n');
+
+      const blob = new Blob([contentLines], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeCode = item.code.replace(/[^a-zA-Z0-9-_]/g, '_');
+      a.href = url;
+      a.download = `BA_Sem${item.semester}_${safeCode}_Study_Notes.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast(`Downloaded: ${item.code} (${item.subject}) Study Notes`);
+    }
+
+    // Toast Notification
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3200);
+    }
+
+    // Add Custom Material Modal Logic
+    const addMaterialModal = document.getElementById('addMaterialModal');
+    const openAddModalBtn = document.getElementById('openAddModalBtn');
+    const closeAddModalBtn = document.getElementById('closeAddModalBtn');
+    const cancelAddBtn = document.getElementById('cancelAddBtn');
+    const addMaterialForm = document.getElementById('addMaterialForm');
+    const addPasswordModal = document.getElementById('addPasswordModal');
+    const addPasswordForm = document.getElementById('addPasswordForm');
+    const addPasswordInput = document.getElementById('addPasswordInput');
+    const addPasswordError = document.getElementById('addPasswordError');
+    let isAddAuthorized = false;
+
+    function openAddModal() {
+      addMaterialModal.classList.remove('hidden');
+      addMaterialModal.classList.add('flex');
+    }
+
+    function openAddPasswordModal() {
+      addPasswordModal.classList.remove('hidden');
+      addPasswordModal.classList.add('flex');
+      addPasswordInput.value = '';
+      addPasswordError.classList.add('hidden');
+      addPasswordInput.focus();
+    }
+
+    function closeAddPasswordModal() {
+      addPasswordModal.classList.add('hidden');
+      addPasswordModal.classList.remove('flex');
+    }
+
+    function closeAddModal() {
+      addMaterialModal.classList.add('hidden');
+      addMaterialModal.classList.remove('flex');
+    }
+
+    openAddModalBtn.addEventListener('click', () => {
+      if (isAddAuthorized) {
+        openAddModal();
+      } else {
+        openAddPasswordModal();
+      }
+    });
+    document.getElementById('cancelPasswordBtn').addEventListener('click', closeAddPasswordModal);
+    addPasswordModal.addEventListener('click', (e) => {
+      if (e.target === addPasswordModal) closeAddPasswordModal();
+    });
+    addPasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      try {
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(addPasswordInput.value));
+        const passwordHash = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+
+        if (passwordHash !== '92b35a51e655e3f6c00fbfced7e14369518574d7a4e558e2bd03967da4e03977') {
+          addPasswordError.textContent = 'Incorrect password. Please try again.';
+          addPasswordError.classList.remove('hidden');
+          addPasswordInput.value = '';
+          addPasswordInput.focus();
+          return;
+        }
+
+        isAddAuthorized = true;
+        closeAddPasswordModal();
+        openAddModal();
+      } catch (err) {
+        console.error('Password verification failed:', err);
+        addPasswordError.textContent = 'Password verification is unavailable in this browser.';
+        addPasswordError.classList.remove('hidden');
+      }
+    });
+    closeAddModalBtn.addEventListener('click', closeAddModal);
+    cancelAddBtn.addEventListener('click', closeAddModal);
+    addMaterialModal.addEventListener('click', (e) => {
+      if (e.target === addMaterialModal) closeAddModal();
+    });
+
+    addMaterialForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!isAddAuthorized) {
+        closeAddModal();
+        openAddPasswordModal();
+        return;
+      }
+      const sem = Number(document.getElementById('newSem').value);
+      const type = document.getElementById('newType').value;
+      const subject = document.getElementById('newSubject').value;
+      const code = document.getElementById('newCode').value.trim().toUpperCase();
+      const title = document.getElementById('newTitle').value.trim();
+      const externalUrl = document.getElementById('newLink').value.trim();
+      const summary = document.getElementById('newSummary').value.trim();
+
+      const subjectLabels = {
+        'Hindi Literature': 'Hindi Literature (हिन्दी साहित्य)',
+        'Political Science': 'Political Science (राजनीति विज्ञान)',
+        'Sociology': 'Sociology (समाजशास्त्र)',
+        'Other': `Allied Subject (${type})`
+      };
+
+      const newItem = {
+        id: 'custom-' + Date.now(),
+        semester: sem,
+        type,
+        subject,
+        subjectLabel: subjectLabels[subject] || subject,
+        code,
+        title,
+        size: externalUrl ? 'External PDF' : '1.5 MB',
+        pages: 'Custom Notes',
+        externalUrl: externalUrl || null,
+        units: summary.split(',').map((s) => s.trim()).filter(Boolean),
+        summary,
+        importantQuestions: ['1. Prepare unit-wise summary and key definitions for ' + title]
+      };
+
+      materials.unshift(newItem);
+
+      try {
+        const existingCustom = JSON.parse(localStorage.getItem('ba_custom_materials_v1') || '[]');
+        existingCustom.unshift(newItem);
+        localStorage.setItem('ba_custom_materials_v1', JSON.stringify(existingCustom));
+      } catch (err) {
+        console.warn('Storage save skipped:', err);
+      }
+
+      addMaterialForm.reset();
+      closeAddModal();
+      renderMaterials();
+      showToast(`Added ${code}: ${title}`);
+    });
+
+    // Keyboard Escape handler for modals
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePreviewModal();
+        closeAddModal();
+        closeAddPasswordModal();
+      }
+    });
+
+    // Initial Render
+    renderMaterials();
+  </script>
+</body>
+</html>
